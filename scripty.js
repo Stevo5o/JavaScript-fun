@@ -48,7 +48,7 @@
 		}
 	};
 	
-	console.log(o.f()); // logs 37
+	console.log(o.f()); // → logs 37
 	
 	// this behavior is not at all affected by how or where the 
 	// function was defined
@@ -60,24 +60,60 @@
 	
 	o.f = independent;
 	
-	console.log(o.f()); // logs 37
+	console.log(o.f()); // → logs 37
 	
-	// 
+	// only affected by the most immediate member reference
 	o.b = { g: independent, prop: 42};
-	console.log( o.b.g() ); // logs 42
+	console.log( o.b.g() ); // → logs 42
 	
+	
+	// this on the object prototype chain
+	var o = { f:function() { return this.a + this.b } };
+	var p = Object.create(o);
+	p.a = 1;
+	p.b = 4;
+	
+	// JavaScript's prototype inheritance
+	console.log(p.f()); // → 5
+	
+	// this with a getter or setter
+	function modulus() {
+		return Math.sqrt(this.re * this.re + this.im * this.im);
+	}
+	
+	// this bound to the object from which the property is being set or gotten
+	var o = {
+		re: 1,
+		im: -1,
+		get phase() {
+			return Math.atan2(this.im, this.re);
+		}
+	};
+	
+	Object.defineProperty(o, 'modulus', {
+		get: modulus, enumerable: true, configurable: true
+	});
+	
+	console.log(o.phase, o.modulus); // → logs -0.78 1.4142
+	
+	function square(x) {
+		squared = x * x;
+  		return this.squared;
+	};
+
+	console.log(square(12)); // → 144
 	
 	// equality 
-	1 == 1; // true			
-	"1" == 1; // true
-	1 == '1'; // true
-	0 == false // true
-	0 == null // false
-	0 == undefined; // false
-	null == undefined // true
+	1 == 1; // → true			
+	"1" == 1; // → true
+	1 == '1'; // → true
+	0 == false // → true
+	0 == null // → false
+	0 == undefined; // → false
+	null == undefined // → true
 	
-	// strict equality
-	3 === 3; // true
-	3 === '3'; // false
+	// strict equa→ lity
+	3 === 3; // → true
+	3 === '3'; // → false
 	
 })();
