@@ -5,6 +5,14 @@
 	<title>Js Fun</title>
 </head>
 <body>
+	<button onclick="alert(this.tagName.toLowerCase())">
+		Show this
+	</button>
+	
+	<button onclick="alert((function(){return this}));">
+		Show inner this
+	</button>
+	
 	<script src="scripty.js"></script>
 </body>
 </html>

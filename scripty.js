@@ -159,7 +159,33 @@
 		console.log(Object.prototype.toString.call(this));
 	}
 	
-	bar.call(7); // [object Number]
+	bar.call(7); // → [object Number]
+	
+	/* 
+	As a DOM event handler
+	this is set to the element the event firsed from (some
+	browsers do not follow this convention for listeners added
+	dynamically with methods other than addEventListener)	
+	*/
+	
+	// when called as a listener, turns the related element blue
+	function bluify(e) {
+		// always true
+		console.log(this === e.currentTarget);
+		// true when currentTarget and target are the same object
+		console.log(this === e.target);
+		this.style.backgroundColor = '#A5D9F3';
+	}
+	
+	// get a list of every element in the document
+	var elements = document.getElementsByTagName('*');
+	
+	// add bluify as a click listener so when the
+	// element is clicked on, it turns blue
+	for(var i = 0; i < elements.length; i++) {
+		elements[i].addEventListener('click', bluify, false);
+	}
+	
 	
 	function square(x) {
 		squared = x * x;
