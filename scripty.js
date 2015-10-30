@@ -94,14 +94,79 @@
 		get: modulus, enumerable: true, configurable: true
 	});
 	
-	console.log(o.phase, o.modulus); // → logs -0.78 1.4142
+	console.log(o.phase, o.modulus); // → logs -0.78 1.4142	
+
+	/*
+	As a constructor
+	When a function is used as a constructor, it's this is 
+	bound to the new object being constructed
+	*/
+	
+	/*
+	* Constructors work like this:
+	*
+	* function MyConstructor(){
+	*   // Actual function body code goes here.  
+	*   // Create properties on |this| as
+	*   // desired by assigning to them.  E.g.,
+	*   this.fum = "nom";
+	*   // et cetera...
+	*
+	*   // If the function has a return statement that
+	*   // returns an object, that object will be the
+	*   // result of the |new| expression.  Otherwise,
+	*   // the result of the expression is the object
+	*   // currently bound to |this|
+	*   // (i.e., the common case most usually seen).
+	* }
+	*/
+	
+	// Constructor
+	function C() {		
+		this.a = 37;
+	}
+	
+	var o = new C();
+	console.log(o.a); // → logs 37
+	
+	// Constructor
+	function C2() {
+		this.a = 37;
+		return { a:38 };
+	}
+	
+	o = new C2();
+	console.log(o.a) // → logs 38
+	
+	/* call and apply */
+	function add(c, d) {
+		return this.a + this.b + c + d;
+	}
+	
+	var o = { a:1, b:3 };
+	
+	// the first parameter is the object to use as 
+	// 'this', subsequent parameters are passed as 
+	// arguments in the function call
+	add.call(o, 5, 7); // → 1 + 3 + 5 + 7 = 16
+	
+	// the first parameter is the object to use as
+	// 'this', the second is an array whose
+	// members are used as the arguments in the function call
+	add.apply(o, [10, 20]); // → 1 + 3 + 10 + 20 = 34	
+	
+	function bar() {
+		console.log(Object.prototype.toString.call(this));
+	}
+	
+	bar.call(7); // [object Number]
 	
 	function square(x) {
 		squared = x * x;
   		return this.squared;
 	};
-
-	console.log(square(12)); // → 144
+	
+	console.log(square(12)); // → 144	
 	
 	// equality 
 	1 == 1; // → true			
@@ -114,6 +179,6 @@
 	
 	// strict equa→ lity
 	3 === 3; // → true
-	3 === '3'; // → false
-	
+	3 === '3'; // → false	
+
 })();
