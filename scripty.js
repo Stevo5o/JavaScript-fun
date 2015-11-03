@@ -194,6 +194,9 @@
 	
 	console.log(square(12)); // → 144	
 	
+
+
+	
 	// equality 
 	1 == 1; // → true			
 	"1" == 1; // → true
@@ -203,8 +206,52 @@
 	0 == undefined; // → false
 	null == undefined // → true
 	
-	// strict equa→ lity
+	// strict equality
 	3 === 3; // → true
 	3 === '3'; // → false	
+	
 
 })();
+
+	// this key word example
+	var fullname = 'John Doe';
+	
+	var obj = {
+		fullname: 'Colin Ihrig',
+		prop: {
+			fullname: 'Aurelio De Rosa',
+			getFullname: function() {
+				return this.fullname;
+			}
+		}
+	};
+	
+	console.log(obj.prop.getFullname());
+	
+	var test = obj.prop.getFullname;
+	
+	console.log(test()); // → Aurelio De Rosa & John Doe
+
+	/* Scope */
+	// (function() {
+	// 	var a = b = 5; //  a is a local variable of the function
+	// })();
+	
+	// console.log(b); // → 5 b is assigned to the global scope
+	
+	// use strict mode
+	// (function() {
+	// 	'use strict'
+	// 	var a = b = 5;
+	// })();
+	
+	// console.log(b); // → Uncaught ReferenceError: b is not defined
+	
+		// use strict mode
+	(function() {
+		'use strict'
+		var a = window.b = 5; // explicitly reference to the global scope 
+	})();
+	
+	console.log(b); // → Uncaught ReferenceError: b is not defined
+	
