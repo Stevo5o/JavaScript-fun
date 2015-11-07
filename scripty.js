@@ -255,3 +255,27 @@
 	
 	console.log(b); // → Uncaught ReferenceError: b is not defined
 	
+	/* Declare the function 'myFunc' */
+	function myFunc(theObject) {
+		theObject.brand = "Toyota";
+	}
+	
+	// declare variable 'mycar';
+	// create and initialize a new Object;
+	// assign reference to it to 'maycar'
+	
+	var mycar = {
+		brand : "Honda",
+		model: "Accord",
+		year: 1998
+	};
+	
+	/* logs 'Honda' */
+	console.log(mycar.brand);
+	
+	/* pass object reference to the function */
+	myFunc(mycar);
+	
+	// logs 'Toyota' as the value of the 'brand' property
+	// of the object, as changed to by the function
+	console.log(mycar.brand);
